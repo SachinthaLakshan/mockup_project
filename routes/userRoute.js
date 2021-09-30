@@ -8,9 +8,9 @@ const userSchema = require('../models/userModel');
 
 router.post('/register', async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { userType, name, email, password } = req.body;
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !userType) {
       return res.status(400).json({ msg: 'Please fill all feilds' });
     } else if (password.length < 4) {
       return res
@@ -24,6 +24,7 @@ router.post('/register', async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const passwordHashed = await bcrypt.hash(password, salt);
     const newUser = await new userSchema({
+      userType,
       name,
       email,
       password: passwordHashed,

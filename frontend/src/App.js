@@ -5,14 +5,16 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Welcome from './components/Welcome';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
         <Sidebar />
-
-        <section class="home-section">
+        <ToastContainer />
+        <section className="home-section">
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/register" component={Register} />

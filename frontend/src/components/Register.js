@@ -1,6 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const Register = () => {
+  const [name, setName] = useState('');
+  const [userType, setUserType] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (password === confirmPassword) {
+      try {
+        const user = {
+          name,
+          email,
+          userType,
+          password,
+        };
+
+        const res = await axios.post('/register', user);
+        if (res.data) {
+          setName('');
+          setUserType('');
+          setEmail('');
+          setPassword('');
+          setConfirmPassword('');
+          return toast.success('Register success');
+        }
+      } catch (err) {
+        if (err.response.status === 400) {
+          toast.error(err.response.data.msg);
+        }
+      }
+    } else {
+      toast.error('Check confirm password');
+    }
+  };
+
   return (
     <div className="login">
       <div className="container">
@@ -8,10 +46,14 @@ const Register = () => {
           <div className="title">
             <span>Register</span>
           </div>
-          <form action="#">
+          <form onSubmit={handleSubmit}>
             <div className="row">
               <i className="fa fa-users"></i>
-              <select id="dropdown">
+              <select
+                id="dropdown"
+                value={userType}
+                onChange={(e) => setUserType(e.target.value)}
+              >
                 <option value="N/A">User type</option>
                 <option value="admin">Admin</option>
                 <option value="user">User</option>
@@ -19,19 +61,39 @@ const Register = () => {
             </div>
             <div className="row">
               <i className="bx bx-user"></i>
-              <input type="text" placeholder="User name *" required />
+              <input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                type="text"
+                placeholder="User name *"
+                required
+              />
             </div>
             <div className="row">
               <i className="fa fa-envelope"></i>
-              <input type="text" placeholder="Email *" required />
+              <input
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                type="email"
+                placeholder="Email *"
+                required
+              />
             </div>
             <div className="row">
               <i className="bx bx-lock"></i>
-              <input type="password" placeholder="Password *" required />
+              <input
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                type="password"
+                placeholder="Password *"
+                required
+              />
             </div>
             <div className="row">
               <i className="fa fa-check-square-o"></i>
               <input
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                value={confirmPassword}
                 type="password"
                 placeholder="Confirm password *"
                 required
