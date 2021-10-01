@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import Modal from './Modal';
 
 const Welcome = () => {
   const { auth } = useSelector((state) => ({ ...state }));
@@ -13,7 +12,6 @@ const Welcome = () => {
     setToggleState(index);
   };
 
-  const placeholderTxt = () => <p>LKR</p>;
   return (
     <div className="tab-view">
       <div className="tab-container">
