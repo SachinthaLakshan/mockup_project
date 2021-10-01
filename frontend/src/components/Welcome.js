@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
+import Modal from './Modal';
 
 const Welcome = () => {
   const { auth } = useSelector((state) => ({ ...state }));
   const logedUser = auth.user.isAdmin;
 
   const [toggleState, setToggleState] = useState(logedUser ? 2 : 1);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const toggleTab = (index) => {
     setToggleState(index);
   };
+
+  const placeholderTxt = () => <p>LKR</p>;
   return (
     <div className="tab-view">
       <div className="tab-container">
@@ -35,13 +39,10 @@ const Welcome = () => {
             }
           >
             <div>
-              <div className="row">
+              <div className="row2">
                 <button
-                  type="button"
+                  onClick={() => setModalVisible(true)}
                   className="create-emp-btn"
-                  onClick={() => {
-                    alert('clicked');
-                  }}
                 >
                   <i className="fa fa-plus" />
                   Create Product
@@ -68,7 +69,7 @@ const Welcome = () => {
                     <td>
                       <button
                         onClick={() => {
-                          alert('clicked');
+                          alert('sad');
                         }}
                         type="button"
                         className="table-acton-btn"
@@ -88,7 +89,7 @@ const Welcome = () => {
                   </tr>
                 </tbody>
               </table>
-              <div className="row center pagination"></div>
+              <div className="row2 center pagination"></div>
             </div>
           </div>
 
@@ -116,6 +117,71 @@ const Welcome = () => {
               </div>
             </div>
           </div>
+        </div>
+        <div>
+          {modalVisible ? (
+            <div className="modal">
+              <div id="popup1" className="overlay">
+                <div className="popup">
+                  <h2>Create Employee</h2>
+                  <hr />
+                  <div className="modal-form">
+                    <form>
+                      <div className="row-modal">
+                        <input
+                          //value={name}
+                          // onChange={(e) => setName(e.target.value)}
+                          type="text"
+                          placeholder="Full Name *"
+                          required
+                        />
+                        <input
+                          //value={name}
+                          // onChange={(e) => setName(e.target.value)}
+                          type="text"
+                          placeholder={'LKR Salary *'}
+                          required
+                        />
+                      </div>
+                      <div className="row-modal">
+                        <input
+                          // onChange={(e) => setEmail(e.target.value)}
+                          // value={email}
+                          type="text"
+                          placeholder="Position *"
+                          required
+                        />
+                        <select
+                          placeholder="Department *"
+                          id="dropdown"
+                          //value={isAdmin}
+                          //onChange={(e) => setIsAdmin(e.target.value)}
+                        >
+                          <option value="N/A">Department *</option>
+                          <option value="HR">HR</option>
+                          <option value="QA">QA</option>
+                          <option value="SE">SE</option>
+                          <option value="MA"> Marketing</option>
+                        </select>
+                      </div>
+                    </form>
+                    <div className="row-modal-btn">
+                      <button className="green">Create</button>
+                      <button className="red">Reset</button>
+                      <button
+                        className="yellow"
+                        onClick={() => setModalVisible(false)}
+                      >
+                        Back
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </div>

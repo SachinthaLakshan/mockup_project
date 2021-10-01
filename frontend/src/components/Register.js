@@ -109,66 +109,6 @@ const Register = () => {
         </div>
       </div>
     </div>
-    // <div className="form-box">
-    //   <form className="input-group-register">
-    //     <div className="text">
-    //       <h1>Register</h1>
-    //     </div>
-    //     <div>
-    //       <select id="dropdown">
-    //         <option value="N/A">Selct role</option>
-    //         <option value="1">1</option>
-    //         <option value="2">2</option>
-    //         <option value="3">3</option>
-    //         <option value="4">4</option>
-    //       </select>
-    //     </div>
-    //     <div>
-    //       <input
-    //         type="userName"
-    //         id="userName"
-    //         placeholder="Enter User Name *"
-    //         required
-    //         //onChange={(e) => setEmail(e.target.value)}
-    //       ></input>
-    //     </div>
-    //     <div>
-    //       <input
-    //         type="email"
-    //         id="email"
-    //         placeholder="Enter email *"
-    //         required
-    //         //onChange={(e) => setEmail(e.target.value)}
-    //       ></input>
-    //     </div>
-    //     <div>
-    //       <input
-    //         type="password"
-    //         id="password"
-    //         placeholder="Enter password *"
-    //         required
-    //         //onChange={(e) => setPassword(e.target.value)}
-    //       ></input>
-    //     </div>
-    //     <div>
-    //       <input
-    //         type="password"
-    //         id="confirmPassword"
-    //         placeholder="Enter Confirm password *"
-    //         required
-    //         // onChange={(e) => setConfirmPassword(e.target.value)}
-    //       ></input>
-    //     </div>
-    //     <div className="btnWraper">
-    //       <button className="primary" type="submit">
-    //         Register
-    //       </button>
-    //     </div>
-    //     <div className="asking">
-    //       <a href="/login"> </a>
-    //     </div>
-    //   </form>
-    // </div>
   );
 };
 
