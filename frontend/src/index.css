@@ -369,6 +369,7 @@ form .signup-link a:hover {
 }
 
 /* Tabs */
+/* Employees Tab */
 .teb-view {
   margin: auto;
 }
@@ -455,4 +456,98 @@ button {
 .active-content {
   display: block;
   border-top: 2px solid #26343d;
+}
+
+/* Table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.table tbody tr:nth-of-type(odd) {
+  background-color: #4a6572;
+}
+.table td {
+  font-size: smaller;
+  color: #fff;
+  text-align: center;
+  border: none;
+  padding: 0.5rem;
+  background-color: #4a6572;
+  border-bottom: 2px solid #26343d;
+}
+.table th {
+  font-size: smaller;
+  color: #ff8c1a;
+  text-align: center;
+  border: none;
+  padding: 0.5rem;
+  background-color: #4a6572;
+  border-bottom: 2px solid #26343d;
+}
+.table button {
+  margin: 0 0.2rem;
+}
+.table-input-btn input {
+  margin-bottom: 0.5rem;
+}
+.table-input-btn {
+  text-align: center !important;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: right;
+  align-items: center;
+}
+.create-emp-btn {
+  background-color: #4c687a;
+  width: 165px;
+  height: 40px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  font-size: 15px;
+  box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.1);
+}
+.create-emp-btn i {
+  padding-right: 8px;
+}
+.create-emp-btn:hover {
+  color: #ff8c1a;
+}
+.table-acton-btn {
+  background: transparent;
+  padding-left: 10px;
+}
+.table-acton-btn:hover {
+  color: #ff8c1a;
+}
+
+/* Departments tab */
+
+.dep-contanier {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.dep-card {
+  padding: 5px;
+  margin-left: 30px;
+  margin-top: 40px;
+  border: none;
+  width: 300px;
+  height: 100px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.1);
+  background-color: #465f6e;
+  text-align: center;
+}
+.dep-card h1 {
+  font-size: 20px;
+  color: #f8bf04;
+  padding-top: 15px;
+}
+.dep-card p {
+  font-size: 20px;
+  color: #fff;
 }

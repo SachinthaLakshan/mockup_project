@@ -34,13 +34,62 @@ const Welcome = () => {
               toggleState === 1 ? 'content  active-content' : 'content'
             }
           >
-            <h2>Content 1</h2>
-            <hr />
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati
-              praesentium incidunt quia aspernatur quasi quidem facilis quo
-              nihil vel voluptatum?
-            </p>
+            <div>
+              <div className="row">
+                <button
+                  type="button"
+                  className="create-emp-btn"
+                  onClick={() => {
+                    alert('clicked');
+                  }}
+                >
+                  <i className="fa fa-plus" />
+                  Create Product
+                </button>
+              </div>
+
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Salary</th>
+                    <th>Department</th>
+                    <th>ACTIONS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>product._id</td>
+                    <td>product.name</td>
+                    <td>product.price</td>
+                    <td>product.category</td>
+
+                    <td>
+                      <button
+                        onClick={() => {
+                          alert('clicked');
+                        }}
+                        type="button"
+                        className="table-acton-btn"
+                      >
+                        <i className="fa fa-trash-o" />
+                      </button>
+                      <button
+                        onClick={() => {
+                          alert('clicked');
+                        }}
+                        type="button"
+                        className="table-acton-btn"
+                      >
+                        <i className="fa fa-pencil-square-o" />
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div className="row center pagination"></div>
+            </div>
           </div>
 
           <div
@@ -48,12 +97,24 @@ const Welcome = () => {
               toggleState === 2 ? 'content  active-content' : 'content'
             }
           >
-            <h2>Content 2</h2>
-            <hr />
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente
-              voluptatum qui adipisci.
-            </p>
+            <div className="dep-contanier">
+              <div className="dep-card">
+                <h1>Marketing Management</h1>
+                <p>Employees : 1</p>
+              </div>
+              <div className="dep-card">
+                <h1>HR Management</h1>
+                <p>Employees : 1</p>
+              </div>
+              <div className="dep-card">
+                <h1>QA</h1>
+                <p>Employees : 1</p>
+              </div>
+              <div className="dep-card">
+                <h1>Software Engineering</h1>
+                <p>Employees : 1</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
