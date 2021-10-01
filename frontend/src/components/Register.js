@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 const Register = () => {
   const [name, setName] = useState('');
-  const [userType, setUserType] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -16,14 +16,14 @@ const Register = () => {
         const user = {
           name,
           email,
-          userType,
+          isAdmin,
           password,
         };
 
         const res = await axios.post('/register', user);
         if (res.data) {
           setName('');
-          setUserType('');
+          setIsAdmin('');
           setEmail('');
           setPassword('');
           setConfirmPassword('');
@@ -51,12 +51,12 @@ const Register = () => {
               <i className="fa fa-users"></i>
               <select
                 id="dropdown"
-                value={userType}
-                onChange={(e) => setUserType(e.target.value)}
+                value={isAdmin}
+                onChange={(e) => setIsAdmin(e.target.value)}
               >
                 <option value="N/A">User type</option>
-                <option value="admin">Admin</option>
-                <option value="user">User</option>
+                <option value={true}>Admin</option>
+                <option value={false}>User</option>
               </select>
             </div>
             <div className="row">

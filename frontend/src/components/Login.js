@@ -27,7 +27,7 @@ const Login = () => {
         });
         console.log('login user', res.data);
         history.push('/welcome');
-        return toast.success('Register success');
+        return toast.success('Login success');
       }
     } catch (err) {
       if (err.response.status === 400) {

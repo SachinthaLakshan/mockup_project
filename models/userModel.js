@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-  userType: {
-    type: String,
+  isAdmin: {
+    type: Boolean,
     required: true,
   },
   name: {

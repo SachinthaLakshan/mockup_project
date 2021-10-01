@@ -367,3 +367,92 @@ form .button input:hover {
 form .signup-link a:hover {
   text-decoration: underline;
 }
+
+/* Tabs */
+.teb-view {
+  margin: auto;
+}
+
+.tab-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  height: 300px;
+  background: #30434f;
+  margin: auto;
+  padding: 0px;
+  word-break: break-all;
+  border: none;
+}
+
+.bloc-tabs {
+  display: flex;
+  max-width: 500px;
+  justify-content: center;
+  margin: auto;
+}
+.tabs {
+  padding: 15px;
+  text-align: center;
+  width: 500px;
+  background: transparent;
+  cursor: pointer;
+  border: none;
+  box-sizing: content-box;
+  position: relative;
+  outline: none;
+}
+.tabs:not(:last-child) {
+  border-right: none;
+}
+
+.active-tabs {
+  background: transparent;
+  border-bottom: 4px solid #b35900;
+}
+
+.active-tabs::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% + 2px);
+  height: 5px;
+  background: rgb(88, 147, 241);
+}
+
+button {
+  border: none;
+  color: #fff;
+  font-size: 20px;
+}
+.content-tabs {
+  flex-grow: 1;
+}
+.content {
+  background: #30434f;
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+.content h2 {
+  padding: 0px 0 5px 0px;
+}
+.content hr {
+  width: 100px;
+  height: 2px;
+  background: #222;
+  margin-bottom: 5px;
+}
+.content p {
+  width: 100%;
+  height: 100%;
+}
+.active-content {
+  display: block;
+  border-top: 2px solid #26343d;
+}

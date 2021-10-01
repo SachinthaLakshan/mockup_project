@@ -1,9 +1,21 @@
-import React from 'react';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Sidebar = () => {
   const [open, setOpen] = useState(false);
+  const { auth } = useSelector((state) => ({ ...state }));
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const logout = () => {
+    dispatch({
+      type: 'LOGOUT',
+      payload: null,
+    });
+    window.localStorage.removeItem('auth');
+    history.push('/login');
+  };
 
   return (
     <div className={open ? 'sidebar open' : 'sidebar'}>
@@ -13,7 +25,6 @@ const Sidebar = () => {
         ) : (
           <></>
         )}
-
         <div className="logo_name"> ABC</div>
         <i
           className={`bx ${!open ? 'bx-menu' : 'bx-menu-alt-right'}`}
@@ -34,27 +45,41 @@ const Sidebar = () => {
           <input type="text" placeholder="Search..." />
           <span className="tooltip">Search</span>
         </li>
-        <li>
-          <Link to="/">
-            <i className="bx bx-grid-alt"></i>
-            <span className="links_name">Dashboard</span>
-          </Link>
-          <span className="tooltip">Dashboard</span>
-        </li>
-        <li>
-          <Link to="/login">
-            <i className="fa fa-sign-in"></i>
-            <span className="links_name">Login</span>
-          </Link>
-          <span className="tooltip">Login</span>
-        </li>
-        <li>
-          <Link to="/register">
-            <i className="fa fa-user-plus"></i>
-            <span className="links_name">Register</span>
-          </Link>
-          <span className="tooltip">Register</span>
-        </li>
+        {auth !== null ? (
+          <>
+            <li>
+              <Link to="/">
+                <i className="bx bx-grid-alt"></i>
+                <span className="links_name">Dashboard</span>
+              </Link>
+              <span className="tooltip">Dashboard</span>
+            </li>
+            <li>
+              <Link to="/login" onClick={logout}>
+                <i className="fa fa fa-sign-out"></i>
+                <span className="links_name">Log out</span>
+              </Link>
+              <span className="tooltip">Log out</span>
+            </li>
+          </>
+        ) : (
+          <>
+            <li>
+              <Link to="/login">
+                <i className="fa fa-sign-in"></i>
+                <span className="links_name">Login</span>
+              </Link>
+              <span className="tooltip">Login</span>
+            </li>
+            <li>
+              <Link to="/register">
+                <i className="fa fa-user-plus"></i>
+                <span className="links_name">Register</span>
+              </Link>
+              <span className="tooltip">Register</span>
+            </li>
+          </>
+        )}
 
         <li className="profile">
           <div className="profile-details">
