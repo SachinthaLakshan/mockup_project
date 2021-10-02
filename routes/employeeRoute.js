@@ -28,4 +28,15 @@ router.get('/emp/get', async (req, res) => {
   res.send(employees);
 });
 
+//delete employees
+router.delete('/emp/:id', async (req, res) => {
+  const employee = await employeeSchema.findById(req.params.id);
+  if (employee) {
+    const deleteEmployee = await employee.remove();
+    res.send({ message: 'Employee Deleted', product: deleteEmployee });
+  } else {
+    res.status(404).send({ message: 'Employee Not Found' });
+  }
+});
+
 module.exports = router;

@@ -17,19 +17,13 @@ const Welcome = () => {
   const [department, setDepartment] = useState(0);
 
   const dispatch = useDispatch();
+  const empDelete = useSelector((state) => state.delete_emp);
+  const { get_emp } = useSelector((state) => ({ ...state }));
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const employee = {
-          department,
-          name,
-          position,
-          salary,
-        };
-
-        const res = await axios.get('/emp/get', employee);
-
+        const res = await axios.get('/emp/get');
         dispatch({
           type: 'GET_EMP_LIST_SUCCESS',
           payload: res.data,
@@ -41,20 +35,27 @@ const Welcome = () => {
       }
     }
     fetchData();
-  }, [dispatch, department, name, position, salary]);
+    dispatch({ type: 'EMP_DELETE_RESET' });
+  }, [dispatch, modalVisible, empDelete.success]);
 
-  const { get_emp } = useSelector((state) => ({ ...state }));
-
-  const toggleTab = (index) => {
-    setToggleState(index);
-  };
-
-  const handleReset = (e) => {
-    e.preventDefault();
-    setName('');
-    setPosition('');
-    setSalary('');
-    setDepartment('');
+  const deleteHandler = (employeeId) => {
+    async function employeeDeleteAction() {
+      dispatch({ type: 'EMP_DELETE_REQUEST' });
+      try {
+        const { data } = axios.delete(`/emp/${employeeId}`);
+        dispatch({ type: 'EMP_DELETE_SUCCESS' });
+        toast.success('Employee delete success');
+      } catch (error) {
+        const message =
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message;
+        dispatch({ type: 'EMP_DELETE_FAIL', payload: message });
+      }
+    }
+    if (window.confirm('Are you sure to delete this employee?')) {
+      employeeDeleteAction();
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -82,6 +83,18 @@ const Welcome = () => {
         toast.error(err.response.data.msg);
       }
     }
+  };
+
+  const toggleTab = (index) => {
+    setToggleState(index);
+  };
+
+  const handleReset = (e) => {
+    e.preventDefault();
+    setName('');
+    setPosition('');
+    setSalary('');
+    setDepartment('');
   };
 
   return (
@@ -145,9 +158,7 @@ const Welcome = () => {
                           </td>
                           <td>
                             <button
-                              onClick={() => {
-                                alert('sad');
-                              }}
+                              onClick={() => deleteHandler(get_emp._id)}
                               type="button"
                               className="table-acton-btn"
                             >

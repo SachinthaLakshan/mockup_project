@@ -13,3 +13,18 @@ export const employeeReducer = (
       return state;
   }
 };
+
+export const employeeDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case 'EMP_DELETE_REQUEST':
+      return { loading: true };
+    case 'EMP_DELETE_SUCCESS':
+      return { loading: false, success: true };
+    case 'EMP_DELETE_FAIL':
+      return { loading: false, error: action.payload };
+    case 'EMP_DELETE_RESET':
+      return {};
+    default:
+      return state;
+  }
+};
