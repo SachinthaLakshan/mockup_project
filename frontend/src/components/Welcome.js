@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+
+import { LoopCircleLoading } from 'react-loadingg';
 
 const Welcome = () => {
   const { auth } = useSelector((state) => ({ ...state }));
@@ -7,9 +11,77 @@ const Welcome = () => {
 
   const [toggleState, setToggleState] = useState(logedUser ? 2 : 1);
   const [modalVisible, setModalVisible] = useState(false);
+  const [name, setName] = useState('');
+  const [position, setPosition] = useState('');
+  const [salary, setSalary] = useState(null);
+  const [department, setDepartment] = useState(0);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const employee = {
+          department,
+          name,
+          position,
+          salary,
+        };
+
+        const res = await axios.get('/emp/get', employee);
+
+        dispatch({
+          type: 'GET_EMP_LIST_SUCCESS',
+          payload: res.data,
+        });
+      } catch (err) {
+        if (err.response.status === 400) {
+          toast.error(err.response.data.msg);
+        }
+      }
+    }
+    fetchData();
+  }, [dispatch, department, name, position, salary]);
+
+  const { get_emp } = useSelector((state) => ({ ...state }));
 
   const toggleTab = (index) => {
     setToggleState(index);
+  };
+
+  const handleReset = (e) => {
+    e.preventDefault();
+    setName('');
+    setPosition('');
+    setSalary('');
+    setDepartment('');
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const employee = {
+        department,
+        name,
+        position,
+        salary,
+      };
+
+      const res = await axios.post('/emp/register', employee);
+      if (res.data) {
+        setName('');
+        setPosition('');
+        setSalary('');
+        setDepartment('');
+
+        return toast.success('Employee register success');
+      }
+    } catch (err) {
+      if (err.response.status === 400) {
+        toast.error(err.response.data.msg);
+      }
+    }
   };
 
   return (
@@ -46,47 +118,57 @@ const Welcome = () => {
                   Create Product
                 </button>
               </div>
-
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Salary</th>
-                    <th>Department</th>
-                    <th>ACTIONS</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>product._id</td>
-                    <td>product.name</td>
-                    <td>product.price</td>
-                    <td>product.category</td>
-
-                    <td>
-                      <button
-                        onClick={() => {
-                          alert('sad');
-                        }}
-                        type="button"
-                        className="table-acton-btn"
-                      >
-                        <i className="fa fa-trash-o" />
-                      </button>
-                      <button
-                        onClick={() => {
-                          alert('clicked');
-                        }}
-                        type="button"
-                        className="table-acton-btn"
-                      >
-                        <i className="fa fa-pencil-square-o" />
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+              {get_emp.loading === true ? (
+                <LoopCircleLoading />
+              ) : (
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Position</th>
+                      <th>Salary</th>
+                      <th>Department</th>
+                      <th>ACTIONS</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {get_emp.employees.map((get_emp) => {
+                      return (
+                        <tr key={get_emp._id}>
+                          <td>{get_emp.name}</td>
+                          <td>{get_emp.position}</td>
+                          <td>{get_emp.salary}</td>
+                          <td>
+                            {get_emp.department === 'MA'
+                              ? 'Marketing'
+                              : get_emp.department}
+                          </td>
+                          <td>
+                            <button
+                              onClick={() => {
+                                alert('sad');
+                              }}
+                              type="button"
+                              className="table-acton-btn"
+                            >
+                              <i className="fa fa-trash-o" />
+                            </button>
+                            <button
+                              onClick={() => {
+                                alert('clicked');
+                              }}
+                              type="button"
+                              className="table-acton-btn"
+                            >
+                              <i className="fa fa-pencil-square-o" />
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              )}
               <div className="row2 center pagination"></div>
             </div>
           </div>
@@ -124,27 +206,27 @@ const Welcome = () => {
                   <h2>Create Employee</h2>
                   <hr />
                   <div className="modal-form">
-                    <form>
+                    <form onSubmit={handleSubmit}>
                       <div className="row-modal">
                         <input
-                          //value={name}
-                          // onChange={(e) => setName(e.target.value)}
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
                           type="text"
                           placeholder="Full Name *"
                           required
                         />
                         <input
-                          //value={name}
-                          // onChange={(e) => setName(e.target.value)}
-                          type="text"
+                          value={salary}
+                          onChange={(e) => setSalary(e.target.value)}
+                          type="number"
                           placeholder={'LKR Salary *'}
                           required
                         />
                       </div>
                       <div className="row-modal">
                         <input
-                          // onChange={(e) => setEmail(e.target.value)}
-                          // value={email}
+                          onChange={(e) => setPosition(e.target.value)}
+                          value={position}
                           type="text"
                           placeholder="Position *"
                           required
@@ -152,8 +234,8 @@ const Welcome = () => {
                         <select
                           placeholder="Department *"
                           id="dropdown"
-                          //value={isAdmin}
-                          //onChange={(e) => setIsAdmin(e.target.value)}
+                          value={department}
+                          onChange={(e) => setDepartment(e.target.value)}
                         >
                           <option value="N/A">Department *</option>
                           <option value="HR">HR</option>
@@ -162,17 +244,25 @@ const Welcome = () => {
                           <option value="MA"> Marketing</option>
                         </select>
                       </div>
+                      <div className="row-modal-btn">
+                        <button type="submit" className="green">
+                          Create
+                        </button>
+                        <button
+                          type="reset"
+                          onClick={handleReset}
+                          className="red"
+                        >
+                          Reset
+                        </button>
+                        <button
+                          className="yellow"
+                          onClick={() => setModalVisible(false)}
+                        >
+                          Back
+                        </button>
+                      </div>
                     </form>
-                    <div className="row-modal-btn">
-                      <button className="green">Create</button>
-                      <button className="red">Reset</button>
-                      <button
-                        className="yellow"
-                        onClick={() => setModalVisible(false)}
-                      >
-                        Back
-                      </button>
-                    </div>
                   </div>
                 </div>
               </div>

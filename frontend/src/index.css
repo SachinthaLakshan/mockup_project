@@ -619,6 +619,7 @@ button {
   transition: all 0.3s ease;
   margin-left: 50px;
   margin-top: 20px;
+  color: #ce801a;
 }
 .modal-form form .row-modal select {
   color: #ce801a;
@@ -657,6 +658,13 @@ button {
 }
 .row-modal-btn .red {
   background-color: red;
+}
+.row-modal-btn .red:hover {
+  color: rgb(14, 233, 69);
+}
+.row-modal-btn .yellow:hover,
+.row-modal-btn .green:hover {
+  color: red;
 }
 .row-modal-btn .yellow {
   background-color: yellow;

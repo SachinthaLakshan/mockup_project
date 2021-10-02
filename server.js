@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const UserRoute = require('./routes/userRoute.js');
+const EmployeeRoute = require('./routes/employeeRoute.js');
 const connectDB = require('./config/db');
 
 connectDB();
@@ -26,7 +27,7 @@ app.use(cors());
 // );
 
 app.use('/', UserRoute);
-
+app.use('/', EmployeeRoute);
 const port = process.env.PORT || 4000;
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));
