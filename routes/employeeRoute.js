@@ -39,4 +39,28 @@ router.delete('/emp/:id', async (req, res) => {
   }
 });
 
+//Update employees
+router.put('/emp/update/:id', async (req, res) => {
+  try {
+    const { department, name, position, salary } = req.body;
+
+    if (!name || !department || !position || !salary) {
+      return res.status(400).json({ msg: 'Please fill all feilds' });
+    }
+    const Employee = await employeeSchema.findById(req.params.id);
+    if (Employee) {
+      Employee.name = req.body.name || Employee.name;
+      Employee.department = req.body.department || Employee.department;
+      Employee.salary = req.body.salary || Employee.salary;
+      Employee.position = req.body.position || Employee.position;
+      const updatedEmployee = await Employee.save();
+      res.send({ message: 'User Updated', user: updatedEmployee });
+    } else {
+      es.status(400).send({ message: 'Employee Not Found' });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 module.exports = router;

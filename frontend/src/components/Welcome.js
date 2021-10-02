@@ -15,6 +15,8 @@ const Welcome = () => {
   const [position, setPosition] = useState('');
   const [salary, setSalary] = useState(null);
   const [department, setDepartment] = useState(0);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [selectedEmployeeID, setSelectedEmployeeID] = useState('');
 
   const dispatch = useDispatch();
   const empDelete = useSelector((state) => state.delete_emp);
@@ -58,29 +60,66 @@ const Welcome = () => {
     }
   };
 
+  const editHandler = (employee) => {
+    setSelectedEmployeeID(employee._id);
+    setModalVisible(true);
+    setIsEditMode(true);
+    setName(employee.name);
+    setPosition(employee.position);
+    setSalary(employee.salary);
+    setDepartment(employee.department);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isEditMode === false) {
+      try {
+        const employee = {
+          department,
+          name,
+          position,
+          salary,
+        };
 
-    try {
-      const employee = {
-        department,
-        name,
-        position,
-        salary,
-      };
+        const res = await axios.post('/emp/register', employee);
+        if (res.data) {
+          setName('');
+          setPosition('');
+          setSalary('');
+          setDepartment('');
 
-      const res = await axios.post('/emp/register', employee);
-      if (res.data) {
-        setName('');
-        setPosition('');
-        setSalary('');
-        setDepartment('');
-
-        return toast.success('Employee register success');
+          return toast.success('Employee register success');
+        }
+      } catch (err) {
+        if (err.response.status === 400) {
+          toast.error(err.response.data.msg);
+        }
       }
-    } catch (err) {
-      if (err.response.status === 400) {
-        toast.error(err.response.data.msg);
+    } else {
+      try {
+        const employee = {
+          department,
+          name,
+          position,
+          salary,
+        };
+
+        const res = await axios.put(
+          `/emp/update/${selectedEmployeeID}`,
+          employee
+        );
+        if (res.data) {
+          setName('');
+          setPosition('');
+          setSalary('');
+          setDepartment('');
+
+          return toast.success('Employee update success');
+        }
+      } catch (err) {
+        if (err.response.status === 400) {
+          toast.error(err.response.data.msg);
+        }
       }
     }
   };
@@ -95,6 +134,17 @@ const Welcome = () => {
     setPosition('');
     setSalary('');
     setDepartment('');
+  };
+
+  const employeeCountHandler = (department) => {
+    var count = 0;
+    get_emp.employees.map((employee) => {
+      if (employee.department === department) {
+        count++;
+      }
+      return null;
+    });
+    return count;
   };
 
   return (
@@ -124,7 +174,11 @@ const Welcome = () => {
             <div>
               <div className="row2">
                 <button
-                  onClick={() => setModalVisible(true)}
+                  onClick={(e) => {
+                    setModalVisible(true);
+                    setIsEditMode(false);
+                    handleReset(e);
+                  }}
                   className="create-emp-btn"
                 >
                   <i className="fa fa-plus" />
@@ -166,7 +220,7 @@ const Welcome = () => {
                             </button>
                             <button
                               onClick={() => {
-                                alert('clicked');
+                                editHandler(get_emp);
                               }}
                               type="button"
                               className="table-acton-btn"
@@ -192,19 +246,19 @@ const Welcome = () => {
             <div className="dep-contanier">
               <div className="dep-card">
                 <h1>Marketing Management</h1>
-                <p>Employees : 1</p>
+                <p>{`Employees : ${employeeCountHandler('MA')}`}</p>
               </div>
               <div className="dep-card">
                 <h1>HR Management</h1>
-                <p>Employees : 1</p>
+                <p>{`Employees : ${employeeCountHandler('HR')}`}</p>
               </div>
               <div className="dep-card">
                 <h1>QA</h1>
-                <p>Employees : 1</p>
+                <p>{`Employees : ${employeeCountHandler('QA')}`}</p>
               </div>
               <div className="dep-card">
                 <h1>Software Engineering</h1>
-                <p>Employees : 1</p>
+                <p>{`Employees : ${employeeCountHandler('SE')}`}</p>
               </div>
             </div>
           </div>
@@ -257,7 +311,7 @@ const Welcome = () => {
                       </div>
                       <div className="row-modal-btn">
                         <button type="submit" className="green">
-                          Create
+                          {isEditMode ? 'Update' : 'Create'}
                         </button>
                         <button
                           type="reset"
