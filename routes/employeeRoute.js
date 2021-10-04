@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const employeeSchema = require('../models/employeeModel');
 
+//register employee
 router.post('/emp/register', async (req, res) => {
   try {
     const { department, name, position, salary } = req.body;

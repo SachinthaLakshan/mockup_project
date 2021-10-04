@@ -38,13 +38,6 @@ const Sidebar = () => {
         {auth !== null ? (
           <>
             <li>
-              <Link to="/">
-                <i className="bx bx-grid-alt"></i>
-                <span className="links_name">Dashboard</span>
-              </Link>
-              <span className="tooltip">Dashboard</span>
-            </li>
-            <li>
               <Link to="/welcome">
                 <i className="fa fa-handshake-o"></i>
                 <span className="links_name">Welcome</span>
@@ -68,6 +61,13 @@ const Sidebar = () => {
           </>
         ) : (
           <>
+            <li>
+              <Link to="/">
+                <i className="bx bx-grid-alt"></i>
+                <span className="links_name">Dashboard</span>
+              </Link>
+              <span className="tooltip">Dashboard</span>
+            </li>
             <li>
               <Link to="/login">
                 <i className="fa fa-sign-in"></i>

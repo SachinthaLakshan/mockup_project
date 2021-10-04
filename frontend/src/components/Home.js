@@ -1,12 +1,37 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 const Home = () => {
-  const { auth } = useSelector((state) => ({ ...state }));
-  console.log(auth);
+  const history = useHistory();
   return (
-    <div>
-      <h1>Home {JSON.stringify(auth)}</h1>
+    <div className="row top">
+      <div className="col-2">
+        <div className="btn-wrap">
+          <div className="left">
+            <button
+              onClick={() => {
+                history.push('/login');
+              }}
+            >
+              <i className="bx bx-user"></i>
+              Log in
+            </button>
+          </div>
+          <div className="right">
+            <button
+              onClick={() => {
+                history.push('/register');
+              }}
+            >
+              <i className="fa fa-user-plus"></i>
+              Register
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="col-1">
+        <img src="svg2.svg" alt="" />
+      </div>
     </div>
   );
 };

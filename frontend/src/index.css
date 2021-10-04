@@ -14,6 +14,9 @@ code {
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 
 @import url("https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css");
+
+/* SideBar */
+
 * {
   margin: 0;
   padding: 0;
@@ -247,7 +250,7 @@ code {
   }
 }
 
-/* Login */
+/* Login & Register */
 .login {
   margin: auto;
   padding: 120px 0px 0px 0px;
@@ -538,6 +541,7 @@ button {
   font-size: 20px;
   color: #fff;
 }
+
 /* POPUP modal*/
 
 .popup {
@@ -791,4 +795,41 @@ body.active-modal {
 }
 .row.top {
   align-items: flex-start;
+}
+
+/* Dashboard */
+
+.row .col-2 .btn-wrap .left button,
+.row .col-2 .btn-wrap .right button {
+  width: 400px;
+  height: 200px;
+  margin-bottom: 30px;
+  font-size: 60px;
+}
+.row .col-2 .btn-wrap .left button {
+  background-color: #13af19;
+  border: 5px solid #6eff1a;
+  border-radius: 50px 50px 5px 5px;
+}
+.row .col-2 .btn-wrap .left button:hover {
+  background-color: #0d7e10;
+}
+.row .col-2 .btn-wrap .right button {
+  background-color: #ffc61a;
+  border: 5px solid #ffff00;
+  border-radius: 5px 5px 50px 50px;
+}
+.row .col-2 .btn-wrap .right button:hover {
+  background-color: #b48907;
+}
+.row .col-2 .btn-wrap button i {
+  color: #4a6572;
+  padding-right: 15px;
+}
+.row .col-1 img {
+  max-width: 600px;
+}
+.row .col-2 .btn-wrap {
+  margin-top: 50px;
+  margin-left: 150px;
 }
