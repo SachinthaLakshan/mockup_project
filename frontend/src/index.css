@@ -130,23 +130,7 @@ code {
   padding: 0 20px 0 50px;
   width: 100%;
 }
-.sidebar .bx-search {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  font-size: 22px;
-  background: #1d1b31;
-  color: #fff;
-}
-.sidebar.open .bx-search:hover {
-  background: #1d1b31;
-  color: #fff;
-}
-.sidebar .bx-search:hover {
-  background: #fff;
-  color: #11101d;
-}
+
 .sidebar li a {
   display: flex;
   height: 100%;
@@ -693,4 +677,118 @@ body.active-modal {
 .overlay {
   background: rgba(10, 10, 10, 0.8);
   opacity: 1;
+}
+
+/* Profile page */
+.profile {
+  padding-top: 50px;
+  max-width: 850px;
+  margin: auto;
+}
+.form-card {
+  margin: auto;
+  padding-bottom: 20px;
+  background: #4a6572;
+  border-radius: 5px;
+  box-shadow: 0px 4px 10px 1px rgba(0, 0, 0, 0.1);
+}
+.form-card form .row-modal input {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  padding-left: 5px;
+  border-radius: 0px;
+  border-left: 0;
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 1px solid rgb(238, 155, 46);
+  background: transparent;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  margin-left: 25px;
+  margin-right: 25px;
+  margin-top: 0px;
+  color: #fff;
+}
+
+.form-card form .row-modal input::placeholder {
+  color: #f1ac58;
+  opacity: 0.3;
+  font-size: 15px;
+  content: "LKR";
+}
+
+.row-modal2 {
+  display: flex;
+  justify-content: safe;
+}
+.form-card form .row-modal2 label {
+  text-decoration: none;
+  color: #ce801a;
+  font-size: 12px;
+  width: 100px;
+  margin-left: 25px;
+  margin-right: 300px;
+  padding-top: 20px;
+}
+
+.avatar {
+  padding-top: 15px;
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  justify-content: center;
+}
+.avatar img {
+  width: 150px;
+  height: 150px;
+  margin: auto;
+  border-radius: 50%;
+}
+
+.row-modal table {
+  max-width: 400px;
+  padding-top: 0px;
+  margin-top: 50px;
+  padding-right: 10px;
+}
+
+.char-avater {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #ce801a;
+  text-align: center;
+  border: 3px solid #fff;
+  margin-left: 20px;
+  font-size: 25px;
+  padding-bottom: 2px;
+}
+
+.row-modal table th .char-avater {
+  margin-left: 50px;
+}
+.row-modal5 {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.col-1 {
+  flex: 1 1 25rem;
+  margin-top: 50px;
+  padding-left: 50px;
+}
+.col-2 {
+  flex: 2 1 50rem;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.row.top {
+  align-items: flex-start;
 }

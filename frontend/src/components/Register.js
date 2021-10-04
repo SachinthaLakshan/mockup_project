@@ -8,7 +8,6 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
@@ -100,7 +99,7 @@ const Register = () => {
               />
             </div>
             <div className="row button">
-              <input type="submit" value="Login" />
+              <input type="submit" value="Register" />
             </div>
             <div className="signup-link">
               Alredy have an account?? <a href="/login">Login</a>

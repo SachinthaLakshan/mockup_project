@@ -35,16 +35,6 @@ const Sidebar = () => {
         ></i>
       </div>
       <ul className="nav-list">
-        <li>
-          <i
-            className="bx bx-search"
-            onClick={() => {
-              setOpen(!open);
-            }}
-          ></i>
-          <input type="text" placeholder="Search..." />
-          <span className="tooltip">Search</span>
-        </li>
         {auth !== null ? (
           <>
             <li>
@@ -53,6 +43,20 @@ const Sidebar = () => {
                 <span className="links_name">Dashboard</span>
               </Link>
               <span className="tooltip">Dashboard</span>
+            </li>
+            <li>
+              <Link to="/welcome">
+                <i className="fa fa-handshake-o"></i>
+                <span className="links_name">Welcome</span>
+              </Link>
+              <span className="tooltip">Welcome</span>
+            </li>
+            <li>
+              <Link to="/profile">
+                <i className="fa fa fa-user"></i>
+                <span className="links_name">Profile</span>
+              </Link>
+              <span className="tooltip">Profile</span>
             </li>
             <li>
               <Link to="/login" onClick={logout}>

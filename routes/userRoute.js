@@ -23,8 +23,10 @@ router.post('/register', async (req, res) => {
     }
     const salt = await bcrypt.genSalt(10);
     const passwordHashed = await bcrypt.hash(password, salt);
+    const time = Date.now();
     const newUser = await new userSchema({
       isAdmin,
+      joinedTime: time,
       name,
       email,
       password: passwordHashed,
@@ -70,6 +72,40 @@ router.post('/login', async (req, res) => {
       id: user._id,
     },
   });
+});
+
+//get all users
+router.get('/user/get', async (req, res) => {
+  const users = await userSchema.find().populate('_id');
+  if (users) {
+    res.send(users);
+  } else {
+    return res.status(400).json({ msg: 'Users not loading' });
+  }
+});
+//update employee
+router.put('/user/update/:id', async (req, res) => {
+  try {
+    const { name, email } = req.body;
+
+    if (!name || !email) {
+      return res.status(400).json({ msg: 'Please fill user name & email' });
+    }
+    const user = await userSchema.findById(req.params.id);
+    if (user) {
+      user.name = req.body.name || user.name;
+      user.email = req.body.email || user.email;
+      user.userName = req.body.userName || user.userName;
+      user.address = req.body.address || user.address;
+      user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
+      const updatedUser = await user.save();
+      res.send({ message: 'User Updated', user: updatedUser });
+    } else {
+      es.status(400).send({ message: 'User Not Found' });
+    }
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 module.exports = router;
